@@ -11,8 +11,8 @@ function App() {
     try {
       const response = await fetch('https://dummyjson.com/users');
       const data = await response.json();
-      const randomIndex = Math.floor(Math.random() * data.users.length); 
-      setUserData(data.users[randomIndex]); 
+      const randomIndex = Math.floor(Math.random() * data.users.length);
+      setUserData(data.users[randomIndex]);
     } catch (error) {
       console.error('Error fetching user data:', error);
     }
@@ -32,35 +32,60 @@ function App() {
     const red = Math.floor(Math.random() * (255 - maxColorComponent) + maxColorComponent);
     const green = Math.floor(Math.random() * (255 - maxColorComponent) + maxColorComponent);
     const blue = Math.floor(Math.random() * (255 - maxColorComponent) + maxColorComponent);
-  return `rgb(${red}, ${green}, ${blue})`;
+    return `rgb(${red}, ${green}, ${blue})`;
   };
 
   return (
-    <> 
-        <Card className='container d-flex justify-content-center mt-5 align-item-center shadow' style={{ width: '22rem', backgroundColor: bgColor }}>
-          {userData && (
-            <>
-              <Card.Img className='d-flex justify-content-center ms-auto me-auto mt-3' style={{height:'30%',width:'30%'}} variant="top" src={userData.image} />
-              <Card.Body>
-                <div className="d-flex justify-content-between">
-                  <h6></h6>
-                  <h6></h6>
-                  <h6></h6>
-                </div><br />
-                <div className='text-center'>
-                <h4>{userData.firstName} {userData.lastName}, {userData.age}</h4>
-                <h5>{userData.address ? `${userData.address.address}, ${userData.address.postalCode}, ${userData.address.city}` : ''}</h5>
+    <>
+      <h2 className='text-center mt-4'>Random User On Refresh</h2>
+      <Card className='container d-flex justify-content-center mt-5 align-item-center shadow' style={{ width: '60%', backgroundColor: bgColor }}>
+        {userData && (
+          <>
+            <Card.Body>
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class='text-center'>
+                      <div className='text-center'>
+                      <Card.Img className='d-flex justify-content-center ms-auto me-auto mt-3' style={{ height: '30%', width: '30%' }} variant="top" src={userData.image} />
+                        <h4>{userData.firstName} {userData.lastName}</h4>
+                        <h6>{userData.gender}</h6>
+                      </div>
+                      <div className="d-flex justify-content-around">
+                      <div className="d-flex flex-column">
+                      <h6>Birth Date</h6>
+                      <p> {userData.birthDate} </p>
+                      </div>
+                      <div className="d-flex flex-column">
+                      <h6>Age  <br /></h6>
+                      <p> {userData.birthDate} </p>
+                      </div>
+                      </div>
+                      <div className="d-flex justify-content-around">
+                      <h6>Weight : <br /> {userData.weight} </h6>
+                      <h6>Height : <br /> {userData.height} </h6>
+                      </div>
+                      <Button variant="info" onClick={refreshData}>REFRESH</Button>
+                    </div>
+                  </div>
+                  <div class="col-md-6 text-center">
+                      <h5>Home Address  <br /></h5>
+                      <p> {userData.address ? `${userData.address.address}` : ''}</p>
+                      <h5>Mobile Phone  <br /></h5>
+                      <p> {userData.phone}</p>
+                      <h5> Company  <br /></h5>
+                      <p>{userData.company.name}</p>
+                      <h5> Job Title  <br /></h5>
+                      <p>{userData.company.title} </p>
+                      <h5> Email  <br /></h5>
+                      <p>{userData.email}</p>
+                  </div>
                 </div>
-                <hr />
-                <div className="d-flex justify-content-between">
-                  <p><i className="fa-solid fa-phone"></i>{userData.phone}</p>
-                  <p><i className="fa-solid fa-calendar-days"></i>{userData.birthDate}</p>
-                </div>
-                <Button variant="info" onClick={refreshData}>Get New user</Button>
-              </Card.Body>
-            </>
-          )}
-        </Card>
+              </div>
+            </Card.Body>
+          </>
+        )}
+      </Card>
     </>
   )
 }
